@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: vaishno-karthik-api
+    runtime: python
+    plan: free
+    region: singapore # or frankfurt/ohio
+    buildCommand: pip install -r backend/requirements.txt && python backend/migrate.py
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false
+      - key: PRIMARY_PHONE
+        value: "9848856787"
+      - key: SECONDARY_PHONE
+        value: "9642145789"
+      - key: WHATSAPP_NUMBER
+        value: "9848856787"
+      - key: ADMIN_EMAIL
+        value: "admin@vaishnokarthik.com"
+      - key: ADMIN_PASSWORD
+        sync: false
